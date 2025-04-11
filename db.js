@@ -1,17 +1,16 @@
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-    host: "localhost",
-    port:"3308",
-    user:"root",
-    password:"1234",
-    database:"ProyectoExpress"
+const { Client } = require('pg');
 
+const client = new Client({
+  host: 'aws-0-us-east-1.pooler.supabase.com',
+  port: 5432,
+  user: 'postgres.uasthgdodkwddiekcyjw',
+  password: 'tDvMCqPROItKq4YH',
+  database: 'postgres',
+  ssl: { rejectUnauthorized: false }, 
 });
-connection.connect((error) => {
-    if(error) {
-        console.log("Error conevtando con la base de datos",error);
-        return 
-    }else{
-        console.log("Conectado a la base de Datos");
-    }
-});
+
+client.connect()
+  .then(() => console.log('Conectado a PostgreSQL con pg'))
+  .catch(err => console.error('Error al conectar', err));
+
+module.exports = client;
